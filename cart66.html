@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    font-size: 18px;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.header{
+    height: 80px;
+    width: 70%;
+    background-color: rgb(218, 106, 32);
+    border-radius: 3px;
+    margin: 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.header .logo{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+.cart{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 3px;
+    width: 80px;
+}
+.fa-solid{
+    color: rgb(218, 32, 147);
+}
+.cart p{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: rgb(196, 157, 153);
+    color: white;
+}
+.container{
+    display: flex;
+    width: 70%;
+    margin-bottom: 30px;
+}
+#root{
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+.sidebar{
+    width: 40%;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-left: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.head{
+    background-color: rgb(151, 145, 208);
+    border-radius: 3px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #333;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(210, 164, 99);
+    border-radius: 5px;
+    padding: 15px;
+}
+.img-box{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.images{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: cover;
+    object-position: center;
+}
+.bottom{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+}
+h2{
+    font-size: 20px;
+    color: rgb(255, 0, 0);
+}
+button{
+    width: 100%;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(117, 188, 188);
+    padding: 7px 25px;
+    cursor: pointer;
+    color: white;
+}
+button:hover{
+    background-color: #333;
+}
+.cart-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 10px 10px;
+}
+.row-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid rgb(195, 168, 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rowimg{
+    max-width: 43px;
+    max-height: 43px;
+    border-radius: 50%;
+}
+.fa-trash:hover{
+    cursor: pointer;
+    color: #333;
+}
+.placeoder{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: goldenrod;
+    color: white;
+}
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Prompt:wght@600&display=swap');
+  </style>
+    </head>
+    <body>
+        <div class="header">
+            <p class="logo">SRVSP006</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container">
+            <div id="root"></div>
+            <div class="sidebar">
+                <div class="head"><p>My Cart</p></div>
+                <div id="cartItem">Your cart is empty</div>
+                <div class="foot">
+                    <h3>Total</h3>
+                    <h2 id="total">$ 0.00</h2>
+                    <div id="placeorder"><input type="button" onclick="placeorder()" value="place order" />
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+const product = [
+    {
+        id: 0,
+        image: 'https://i0.wp.com/www.onceuponachef.com/images/2020/01/Coq_au_vin.jpg?resize=760%2C998&ssl=1',
+        title: 'Coq au Vin',
+        price: 320,
+    },
+    {
+        id: 1,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzX3vK9nx5LgNwJ7cfiwDUNpYUa6pEZzToEg&usqp=CAU',
+        title: 'Ratatouille',
+        price: 440,
+    },
+    {
+        id: 2,
+        image: 'https://www.saveur.com/uploads/2019/03/18/43V33DFPBMBIYTNNPUWXBT2GFA.jpg?auto=webp',
+        title: 'Escargot with Garlic Butter',
+        price: 240,
+    },
+    {
+        id: 3,
+        image: 'https://natashaskitchen.com/wp-content/uploads/2020/02/Creme-Brule-Recipe-SQ.jpg',
+        title: 'Crème Brûlée',
+        price: 290,
+    },
+    {
+        id: 4,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ-_B1mjZ4lfx02kG7TIR4kWF5zwgeYcmjTw&usqp=CAU',
+        title: 'French Onion Soup',
+        price: 169,
+    },
+    {
+        id: 5,
+        image: 'https://hips.hearstapps.com/hmg-prod/images/190208-delish-ramen-horizontal-093-1550096715.jpg?crop=1xw:0.843328335832084xh;center,top',
+        title: 'Shoyu Ramen',
+        price: 432,
+    },
+    {
+        id: 6,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTznUzwBH-TZTwlYzSVNc3uMt8AvyUbjBfUoQ&usqp=CAU',
+        title: 'Miso Ramen',
+        price: 342,
+    },
+    {
+        id: 7,
+        image: 'https://i.pinimg.com/736x/56/f5/80/56f5804fadd09dbf6d07c9ae9094b0ad.jpg',
+        title: 'Tonkotsu Ramen',
+        price: 459,
+    },
+    {
+        id: 8,
+        image: 'https://recipetineats.com/wp-content/uploads/2018/03/Potstickers_6.jpg',
+        title: 'Gyoza (Pan-Fried Dumplings)',
+        price: 249,
+    },
+    {
+        id: 9,
+        image: 'https://www.rotinrice.com/wp-content/uploads/2011/08/MatchaIceCream-1.jpg',
+        title: 'Matcha Ice Cream',
+        price: 199,
+    },
+    {
+        id: 10,
+        image: 'https://www.seriouseats.com/thmb/oj4VMXkNHePBjrA5U2DzzF0l6XI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20220628-Moussaka-AmandaSuarez-48-hero-7ed4668845264c659574e07490d9ff5c.JPG',
+        title: 'Moussaka',
+        price: 429,
+    },
+    {
+        id: 11,
+        image: 'https://www.africanbites.com/wp-content/uploads/2021/09/IMG_3955.jpg',
+        title: 'Spanakopita (Spinach Pie)',
+        price: 380,
+    },
+    {
+        id: 12,
+        image: 'https://i.pinimg.com/736x/df/d0/d7/dfd0d7e746a32db817213049d1e440ec.jpg',
+        title: 'Souvlaki Platter',
+        price: 339,
+    },
+];
+const categories = [...new Set(product.map((item)=>
+    {return item}))]
+    let i=0;
+document.getElementById('root').innerHTML = categories.map((item)=>
+{
+    var {image, title, price} = item;
+    return(
+        `<div class='box'>
+            <div class='img-box'>
+                <img class='images' src=${image}></img>
+            </div>
+        <div class='bottom'>
+        <p>${title}</p>
+        <h2>&#8377 ${price}.00</h2>`+
+        "<button onclick='addtocart("+(i++)+")'>Add to cart</button>"+
+        `</div>
+        </div>`
+    )
+}).join('')
+
+var cart =[];
+
+function addtocart(a){
+    cart.push({...categories[a]});
+    displaycart();
+}
+function delElement(a){
+    cart.splice(a, 1);
+    displaycart();
+}
+
+function displaycart(){
+    let j = 0, total=0;
+    document.getElementById("count").innerHTML=cart.length;
+    if(cart.length==0){
+        document.getElementById('cartItem').innerHTML = "Your cart is empty";
+        document.getElementById("total").innerHTML = "&#8377 "+0+".00";
+    }
+    else{
+        document.getElementById("cartItem").innerHTML = cart.map((items)=>
+        {
+            var {image, title, price} = items;
+            total=total+price;
+            document.getElementById("total").innerHTML = "&#8377; "+total+".00";
+            return(
+                `<div class='cart-item'>
+                <div class='row-img'>
+                    <img class='rowimg' src=${image}>
+                </div>
+                <p style='font-size:12px;'>${title}</p>
+                <h2 style='font-size: 15px;'>&#8377 ${price}.00</h2>`+
+                "<i class='fa-solid fa-trash' onclick='delElement("+ (j++) +")'></i></div>"
+            );
+        }).join('');
+    }   
+}
+function placeorder() {
+    alert("Details to fill")
+    window.location.assign('pament.html');
+ }
+</script>
+    </body>
+</html>

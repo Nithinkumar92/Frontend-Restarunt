@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    font-size: 18px;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.header{
+    height: 80px;
+    width: 70%;
+    background-color: rgb(218, 106, 32);
+    border-radius: 3px;
+    margin: 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.header .logo{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+.cart{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 3px;
+    width: 80px;
+}
+.fa-solid{
+    color: rgb(218, 32, 147);
+}
+.cart p{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: rgb(196, 157, 153);
+    color: white;
+}
+.container{
+    display: flex;
+    width: 70%;
+    margin-bottom: 30px;
+}
+#root{
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+.sidebar{
+    width: 40%;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-left: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.head{
+    background-color: rgb(151, 145, 208);
+    border-radius: 3px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #333;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(210, 164, 99);
+    border-radius: 5px;
+    padding: 15px;
+}
+.img-box{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.images{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: cover;
+    object-position: center;
+}
+.bottom{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+}
+h2{
+    font-size: 20px;
+    color: rgb(255, 0, 0);
+}
+button{
+    width: 100%;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(117, 188, 188);
+    padding: 7px 25px;
+    cursor: pointer;
+    color: white;
+}
+button:hover{
+    background-color: #333;
+}
+.cart-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 10px 10px;
+}
+.row-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid rgb(195, 168, 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rowimg{
+    max-width: 43px;
+    max-height: 43px;
+    border-radius: 50%;
+}
+.fa-trash:hover{
+    cursor: pointer;
+    color: #333;
+}
+.placeoder{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: goldenrod;
+    color: white;
+}
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Prompt:wght@600&display=swap');
+  </style>
+    </head>
+    <body>
+        <div class="header">
+            <p class="logo">HSRJY005</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container">
+            <div id="root"></div>
+            <div class="sidebar">
+                <div class="head"><p>My Cart</p></div>
+                <div id="cartItem">Your cart is empty</div>
+                <div class="foot">
+                    <h3>Total</h3>
+                    <h2 id="total">$ 0.00</h2>
+                    <div id="placeorder"><input type="button" onclick="placeorder()" value="place order" />
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+const product = [
+    {
+        id: 0,
+        image: 'https://www.vegrecipesofindia.com/wp-content/uploads/2020/12/burger-recipe-4.jpg',
+        title: 'Veggie Burger',
+        price: 120,
+    },
+    {
+        id: 1,
+        image: 'https://www.allrecipes.com/thmb/1ul-jdOz8H4b6BDrRcYOuNmJgt4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/239867chef-johns-chicken-tikka-masala-ddmfs-3X4-0572-e02a25f8c7b745459a9106e9eb13de10.jpg',
+        title: 'Chicken Tikka Masala',
+        price: 240,
+    },
+    {
+        id: 2,
+        image: 'https://www.indianveggiedelight.com/wp-content/uploads/2020/04/veg-biryani-instant-pot.jpg',
+        title: 'Vegetable Biryani ',
+        price: 180,
+    },
+    {
+        id: 3,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkwK05cpvE9hVnUGnAi84mykjffNg00W58rg&usqp=CAU',
+        title: 'Saag Paneer',
+        price: 320,
+    },
+    {
+        id: 4,
+        image: 'https://media.istockphoto.com/id/183564340/photo/close-up-photograph-of-a-pile-of-plain-naan-flatbreads.jpg?s=612x612&w=0&k=20&c=mlcv58NxCe8svyVDg27zME9FZbTx9FaUGG0utxWGZVk=',
+        title: 'Naan Bread',
+        price: 180,
+    },
+    {
+        id: 5,
+        image: 'https://t3.ftcdn.net/jpg/00/46/29/14/360_F_46291453_CJqHnfrjtb6fxsndJNB62Z4jxA7TP36R.jpg',
+        title: 'Butter Chicken',
+        price: 180,
+    },
+    {
+        id: 6,
+        image: 'https://media.istockphoto.com/id/1091565958/photo/spicy-potato-curry-indian-recipe.jpg?s=612x612&w=0&k=20&c=km419oVyfT731IrxaqSqUYGS5vgN1K1f1Xb32sw1Jms=',
+        title: 'Aloo Gobi',
+        price: 180,
+    },
+    {
+        id: 7,
+        image: 'https://img.taste.com.au/TFQ_zAsZ/taste/2017/06/lamb-rogan-josh-127388-1.jpg',
+        title: 'Rogan Josh (Lamb Curry)',
+        price: 580,
+    },
+    {
+        id: 8,
+        image: 'https://t4.ftcdn.net/jpg/02/97/69/65/360_F_297696576_s8k3pGepliFhN2oILIzLUAkQuukKalDI.jpg',
+        title: 'Chana Masala',
+        price: 179,
+    },
+    {
+        id: 9,
+        image: 'https://jyokitchen607760324.files.wordpress.com/2018/09/9ee7e-img_2805.jpg?w=1200',
+        title: 'Lamb Kebabs',
+        price: 680,
+    },
+    {
+        id: 10,
+        image: 'https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg',
+        title: 'Classic Cheeseburger',
+        price: 99,
+    },
+    {
+        id: 11,
+        image: 'https://www.tastesoflizzyt.com/wp-content/uploads/2019/06/bacon-cheeseburger-4-500x375.jpg',
+        title: 'BBQ Bacon Burger',
+        price: 192,
+    },
+    {
+        id: 12,
+        image: 'https://www.thespruceeats.com/thmb/ri8ba_zHckEKdjPRhc1neyZsufE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/easy-homemade-truffle-fries-recipe-1375725-hero-02-a9d4ccb2e72544469c044f6ddd728bf3.jpg',
+        title: 'Truffle Fries',
+        price: 159,
+    },
+];
+const categories = [...new Set(product.map((item)=>
+    {return item}))]
+    let i=0;
+document.getElementById('root').innerHTML = categories.map((item)=>
+{
+    var {image, title, price} = item;
+    return(
+        `<div class='box'>
+            <div class='img-box'>
+                <img class='images' src=${image}></img>
+            </div>
+        <div class='bottom'>
+        <p>${title}</p>
+        <h2>&#8377 ${price}.00</h2>`+
+        "<button onclick='addtocart("+(i++)+")'>Add to cart</button>"+
+        `</div>
+        </div>`
+    )
+}).join('')
+
+var cart =[];
+
+function addtocart(a){
+    cart.push({...categories[a]});
+    displaycart();
+}
+function delElement(a){
+    cart.splice(a, 1);
+    displaycart();
+}
+
+function displaycart(){
+    let j = 0, total=0;
+    document.getElementById("count").innerHTML=cart.length;
+    if(cart.length==0){
+        document.getElementById('cartItem').innerHTML = "Your cart is empty";
+        document.getElementById("total").innerHTML = "&#8377 "+0+".00";
+    }
+    else{
+        document.getElementById("cartItem").innerHTML = cart.map((items)=>
+        {
+            var {image, title, price} = items;
+            total=total+price;
+            document.getElementById("total").innerHTML = "&#8377; "+total+".00";
+            return(
+                `<div class='cart-item'>
+                <div class='row-img'>
+                    <img class='rowimg' src=${image}>
+                </div>
+                <p style='font-size:12px;'>${title}</p>
+                <h2 style='font-size: 15px;'>&#8377 ${price}.00</h2>`+
+                "<i class='fa-solid fa-trash' onclick='delElement("+ (j++) +")'></i></div>"
+            );
+        }).join('');
+    }   
+}
+function placeorder() {
+    alert("Details to fill")
+    window.location.assign('pament.html');
+ }
+</script>
+    </body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    font-size: 18px;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.header{
+    height: 80px;
+    width: 70%;
+    background-color: rgb(218, 106, 32);
+    border-radius: 3px;
+    margin: 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.header .logo{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+.cart{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 3px;
+    width: 80px;
+}
+.fa-solid{
+    color: rgb(218, 32, 147);
+}
+.cart p{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: rgb(196, 157, 153);
+    color: white;
+}
+.container{
+    display: flex;
+    width: 70%;
+    margin-bottom: 30px;
+}
+#root{
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+.sidebar{
+    width: 40%;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-left: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.head{
+    background-color: rgb(151, 145, 208);
+    border-radius: 3px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #333;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(210, 164, 99);
+    border-radius: 5px;
+    padding: 15px;
+}
+.img-box{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.images{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: cover;
+    object-position: center;
+}
+.bottom{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+}
+h2{
+    font-size: 20px;
+    color: rgb(255, 0, 0);
+}
+button{
+    width: 100%;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(117, 188, 188);
+    padding: 7px 25px;
+    cursor: pointer;
+    color: white;
+}
+button:hover{
+    background-color: #333;
+}
+.cart-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 10px 10px;
+}
+.row-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid rgb(195, 168, 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rowimg{
+    max-width: 43px;
+    max-height: 43px;
+    border-radius: 50%;
+}
+.fa-trash:hover{
+    cursor: pointer;
+    color: #333;
+}
+.placeoder{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: goldenrod;
+    color: white;
+}
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Prompt:wght@600&display=swap');
+  </style>
+    </head>
+    <body>
+        <div class="header">
+            <p class="logo">ARVZM007</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container">
+            <div id="root"></div>
+            <div class="sidebar">
+                <div class="head"><p>My Cart</p></div>
+                <div id="cartItem">Your cart is empty</div>
+                <div class="foot">
+                    <h3>Total</h3>
+                    <h2 id="total">$ 0.00</h2>
+                    <div id="placeorder"><input type="button" onclick="placeorder()" value="place order" />
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+const product = [
+    {
+        id: 0,
+        image: 'https://whatsgabycooking.com/wp-content/uploads/2014/07/WGC-Homemade-Tzatziki-with-Pita-Chips-1-copy-2.jpg',
+        title: 'Tzatziki with Pita',
+        price: 329,
+    },
+    {
+        id: 1,
+        image: 'https://cookingorgeous.com/wp-content/uploads/2021/12/turkish-baklava-with-pistachio-16.jpg',
+        title: 'Baklava',
+        price: 299,
+    },
+    {
+        id: 2,
+        image: 'https://d21klxpge3tttg.cloudfront.net/wp-content/uploads/2012/08/picanha-628x373.jpg',
+        title: 'Picanha (Top Sirloin)',
+        price: 249,
+    },
+    {
+        id: 3,
+        image: 'https://www.simplyrecipes.com/thmb/6DoHpwmwBvPY-Ez_ckaPm4XSdXQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2011__01__feijoada-black-bean-stew-horiz-a-1800-8e3962c199844900a9dc5da8182e59c8.jpg',
+        title: 'Feijoada (Black Bean Stew with Pork)',
+        price: 329,
+    },
+    {
+        id: 4,
+        image: 'https://hilahcooking.com/wp-content/uploads/2017/01/coxinha-recipe-716x1024.jpg',
+        title: 'Coxinha (Chicken Croquettes)',
+        price: 389,
+    },
+    {
+        id: 5,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO4d_v9QSDcw7Pzr1YPqSm9w48wbi0nnMWqw&usqp=CAU',
+        title: 'Brazilian Cheese Bread (Pão de Queijo)',
+        price: 289,
+    },
+    {
+        id: 6,
+        image: 'https://assets.epicurious.com/photos/579a2d8e437fcffe02f7230b/16:9/w_2000,h_1125,c_limit/caipirinha-072816.jpg',
+        title: 'Caipirinha (Cocktail)',
+        price: 289,
+    },
+    {
+        id: 7,
+        image: 'https://www.seriouseats.com/thmb/1GW7-aar5IviqWJu9WZPhfpnkCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__20111211-127355-dinner-tonight-pad-see-ew-primary-8309b5e994e1454fa1738968e99d1c53.jpg',
+        title: 'Pad See Ew',
+        price: 392,
+    },
+    {
+        id: 8,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGSEcwIlwDWwQT2ZxHsRjUp7b27FXSRnn3dQ&usqp=CAU',
+        title: 'Som Tum (Green Papaya Salad)',
+        price: 219,
+    },
+    {
+        id: 9,
+        image: 'https://asset.kompas.com/crops/SCsx5wwsIGo_kGlOkhsMbTWKaeE=/120x80:1000x667/750x500/data/photo/2022/06/09/62a17bac71461.jpg',
+        title: 'Mango Sticky Rice',
+        price: 259,
+    },
+    {
+        id: 10,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSzKGcn3Y6H8pOe4i2V30aOwyNkmsEJiCttg&usqp=CAU',
+        title: 'Thai Iced Tea',
+        price: 199,
+    },
+    {
+        id: 11,
+        image: 'https://www.wellplated.com/wp-content/uploads/2016/08/Satay-Chicken-with-Peanut-Dipping-Sauce.jpg',
+        title: 'Satay Skewers',
+        price: 210,
+    },
+    {
+        id: 12,
+        image: 'https://i2.wp.com/www.bharatzkitchen.com/wp-content/uploads/2020/08/Pulav.jpg?fit=480%2C268&ssl=1',
+        title: 'pulav',
+        price: 149,
+    },
+];
+const categories = [...new Set(product.map((item)=>
+    {return item}))]
+    let i=0;
+document.getElementById('root').innerHTML = categories.map((item)=>
+{
+    var {image, title, price} = item;
+    return(
+        `<div class='box'>
+            <div class='img-box'>
+                <img class='images' src=${image}></img>
+            </div>
+        <div class='bottom'>
+        <p>${title}</p>
+        <h2>&#8377 ${price}.00</h2>`+
+        "<button onclick='addtocart("+(i++)+")'>Add to cart</button>"+
+        `</div>
+        </div>`
+    )
+}).join('')
+
+var cart =[];
+
+function addtocart(a){
+    cart.push({...categories[a]});
+    displaycart();
+}
+function delElement(a){
+    cart.splice(a, 1);
+    displaycart();
+}
+
+function displaycart(){
+    let j = 0, total=0;
+    document.getElementById("count").innerHTML=cart.length;
+    if(cart.length==0){
+        document.getElementById('cartItem').innerHTML = "Your cart is empty";
+        document.getElementById("total").innerHTML = "&#8377 "+0+".00";
+    }
+    else{
+        document.getElementById("cartItem").innerHTML = cart.map((items)=>
+        {
+            var {image, title, price} = items;
+            total=total+price;
+            document.getElementById("total").innerHTML = "&#8377; "+total+".00";
+            return(
+                `<div class='cart-item'>
+                <div class='row-img'>
+                    <img class='rowimg' src=${image}>
+                </div>
+                <p style='font-size:12px;'>${title}</p>
+                <h2 style='font-size: 15px;'>&#8377 ${price}.00</h2>`+
+                "<i class='fa-solid fa-trash' onclick='delElement("+ (j++) +")'></i></div>"
+            );
+        }).join('');
+    }   
+}
+function placeorder() {
+    alert("Details to fill")
+    window.location.assign('pament.html');
+ }
+</script>
+    </body>
+</html>

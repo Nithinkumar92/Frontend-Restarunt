@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    font-size: 18px;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.header{
+    height: 80px;
+    width: 70%;
+    background-color: rgb(218, 106, 32);
+    border-radius: 3px;
+    margin: 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.header .logo{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+.cart{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 3px;
+    width: 80px;
+}
+.fa-solid{
+    color: rgb(218, 32, 147);
+}
+.cart p{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: rgb(196, 157, 153);
+    color: white;
+}
+.container{
+    display: flex;
+    width: 70%;
+    margin-bottom: 30px;
+}
+#root{
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+.sidebar{
+    width: 40%;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-left: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.head{
+    background-color: rgb(151, 145, 208);
+    border-radius: 3px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #333;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(210, 164, 99);
+    border-radius: 5px;
+    padding: 15px;
+}
+.img-box{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.images{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: cover;
+    object-position: center;
+}
+.bottom{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+}
+h2{
+    font-size: 20px;
+    color: rgb(255, 0, 0);
+}
+button{
+    width: 100%;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(117, 188, 188);
+    padding: 7px 25px;
+    cursor: pointer;
+    color: white;
+}
+button:hover{
+    background-color: #333;
+}
+.cart-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 10px 10px;
+}
+.row-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid rgb(195, 168, 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rowimg{
+    max-width: 43px;
+    max-height: 43px;
+    border-radius: 50%;
+}
+.fa-trash:hover{
+    cursor: pointer;
+    color: #333;
+}
+.placeoder{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: goldenrod;
+    color: white;
+}
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Prompt:wght@600&display=swap');
+  </style>
+    </head>
+    <body>
+        <div class="header">
+            <p class="logo">SGGRBMVRM001</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container">
+            <div id="root"></div>
+            <div class="sidebar">
+                <div class="head"><p>My Cart</p></div>
+                <div id="cartItem">Your cart is empty</div>
+                <div class="foot">
+                    <h3>Total</h3>
+                    <h2 id="total">$ 0.00</h2>
+                    <div id="placeorder"><input type="button" onclick="placeorder()" value="place order" />
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+const product = [
+    {
+        id: 0,
+        image: 'https://southindianfoods.in/recipe_picture_enlarge/andhra_plaintainleaf_meals.jpg',
+        title: 'full miles',
+        price: 120,
+    },
+    {
+        id: 1,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREa7r-iQJgtsW7whypykCOTF54Y85ZS-35Rw&usqp=CAU',
+        title: 'chicken biriyani',
+        price: 240,
+    },
+    {
+        id: 2,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqAxGF3hr81I5hyGdakws_NwiepfMju6M0-Q&usqp=CAU',
+        title: 'chicken curry',
+        price: 180,
+    },
+    {
+        id: 3,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL1nKcafdVC_CezVhfb7gH5HWYtLlGctQuAw&usqp=CAU',
+        title: 'mutton biriyani',
+        price: 320,
+    },
+    {
+        id: 4,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqeJVdpvfRnbPXH6cUOQS9htRms4aOwIBDSA&usqp=CAU',
+        title: 'paneer curry',
+        price: 180,
+    },
+    {
+        id: 5,
+        image: 'https://vismaifood.com/storage/app/uploads/public/980/eb9/ed6/thumb__700_0_0_0_auto.jpg',
+        title: 'Dumbiriyani',
+        price: 180,
+    },
+    {
+        id: 6,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5lKqeNcZoYtFDJo_qIs17n3kHwOSa6Q7EgQ&usqp=CAU',
+        title: ' chicken joint fry',
+        price: 180,
+    },
+    {
+        id: 7,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-liNdKXTqfHjoNgIbPG3E3bEDKuha3MlboA&usqp=CAU',
+        title: 'kajupaneer',
+        price: 180,
+    },
+    {
+        id: 8,
+        image: 'https://i0.wp.com/gomathirecipes.com/wp-content/uploads/2021/10/authentic-chettinad-fish-meen-kuzhambu-curry.jpg?resize=768%2C720&ssl=1',
+        title: 'fish curry',
+        price: 180,
+    },
+    {
+        id: 9,
+        image: 'https://jyokitchen607760324.files.wordpress.com/2018/09/9ee7e-img_2805.jpg?w=1200',
+        title: 'chicken Moghali Biriyani',
+        price: 180,
+    },
+    {
+        id: 10,
+        image: 'https://hips.hearstapps.com/hmg-prod/images/chicken-piccata-index-64b1bf9763f54.jpg?crop=0.8888888888888888xw:1xh;center,top&resize=1200:*',
+        title: 'Chicken Piccata',
+        price: 899,
+    },
+    {
+        id: 11,
+        image: 'https://100krecipes.com/wp-content/uploads/2020/09/Roasted-Tomato-Basil-Soupfirst_image.jpg',
+        title: 'Tomato Basil Soup',
+        price: 380,
+    },
+    {
+        id: 12,
+        image: 'https://www.themediterraneandish.com/wp-content/uploads/2023/05/TMD-Mushroom-Risotto-WEB-7.jpg',
+        title: 'Mushroom Risotto',
+        price: 999,
+    },
+];
+const categories = [...new Set(product.map((item)=>
+    {return item}))]
+    let i=0;
+document.getElementById('root').innerHTML = categories.map((item)=>
+{
+    var {image, title, price} = item;
+    return(
+        `<div class='box'>
+            <div class='img-box'>
+                <img class='images' src=${image}></img>
+            </div>
+        <div class='bottom'>
+        <p>${title}</p>
+        <h2>&#8377 ${price}.00</h2>`+
+        "<button onclick='addtocart("+(i++)+")'>Add to cart</button>"+
+        `</div>
+        </div>`
+    )
+}).join('')
+
+var cart =[];
+
+function addtocart(a){
+    cart.push({...categories[a]});
+    displaycart();
+}
+function delElement(a){
+    cart.splice(a, 1);
+    displaycart();
+}
+
+function displaycart(){
+    let j = 0, total=0;
+    document.getElementById("count").innerHTML=cart.length;
+    if(cart.length==0){
+        document.getElementById('cartItem').innerHTML = "Your cart is empty";
+        document.getElementById("total").innerHTML = "&#8377 "+0+".00";
+    }
+    else{
+        document.getElementById("cartItem").innerHTML = cart.map((items)=>
+        {
+            var {image, title, price} = items;
+            total=total+price;
+            document.getElementById("total").innerHTML = "&#8377; "+total+".00";
+            return(
+                `<div class='cart-item'>
+                <div class='row-img'>
+                    <img class='rowimg' src=${image}>
+                </div>
+                <p style='font-size:12px;'>${title}</p>
+                <h2 style='font-size: 15px;'>&#8377 ${price}.00</h2>`+
+                "<i class='fa-solid fa-trash' onclick='delElement("+ (j++) +")'></i></div>"
+            );
+        }).join('');
+    }   
+}
+function placeorder() {
+    alert("Details to fill")
+    window.location.assign('pament.html');
+ }
+</script>
+    </body>
+</html>

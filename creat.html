@@ -1,0 +1,137 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+   <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #e9d1d1cc;
+    margin: 0;
+    padding: 0;
+}
+body{
+        background-image:url('https://img.freepik.com/free-photo/copy-space-italian-food-ingredients_23-2148551732.jpg');
+        background-size:1300px;
+        background-attachment:fixed;
+        background-repeat:no-repeat;
+        background-size:cover;
+        }
+.container {
+    max-width:800px;
+    padding: 20px;
+    border: 1px solid #ccc;
+backface-visibility: transparent;  
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    #111
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+backface-visibility: transparent;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    backface-visibility: transparent;
+    width: 400px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    
+}
+h1 {
+    color: rgba(48, 81, 96, 0.944);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #000000;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"]
+ {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    backface-visibility: transparent;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+   </style>
+<body>
+    <form action="">
+    <div class="container">
+   
+   
+    <h1>Create Account</h1>
+   
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br> 
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+        <div class="subcontainer">
+            <label>
+                <input type="checkbox" checked="checked" name="accept">I accept the Terms of 
+                Service and Privacy Policy <br><br>
+                <div>
+                <button type="submit" onclick="signup()">Create Account</button></div>   
+    </div>
+</div>
+    </form>
+    <script>
+        function signup()
+        {
+          var NAME=document.getElementById("username").value;
+          var PASS=document.getElementById("password").value;
+          if(NAME == NAME && PASS == PASS)
+          {
+            window.location.replace("rest.html");
+              window.alert("Your account is created");
+          }
+        }
+     </script>
+</body>
+</html>

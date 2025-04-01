@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    font-size: 18px;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.header{
+    height: 80px;
+    width: 70%;
+    background-color: rgb(218, 106, 32);
+    border-radius: 3px;
+    margin: 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.header .logo{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+.cart{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 3px;
+    width: 80px;
+}
+.fa-solid{
+    color: rgb(218, 32, 147);
+}
+.cart p{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: rgb(196, 157, 153);
+    color: white;
+}
+.container{
+    display: flex;
+    width: 70%;
+    margin-bottom: 30px;
+}
+#root{
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+.sidebar{
+    width: 40%;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-left: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.head{
+    background-color: rgb(151, 145, 208);
+    border-radius: 3px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #333;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(210, 164, 99);
+    border-radius: 5px;
+    padding: 15px;
+}
+.img-box{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.images{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: cover;
+    object-position: center;
+}
+.bottom{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+}
+h2{
+    font-size: 20px;
+    color: rgb(255, 0, 0);
+}
+button{
+    width: 100%;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(117, 188, 188);
+    padding: 7px 25px;
+    cursor: pointer;
+    color: white;
+}
+button:hover{
+    background-color: #333;
+}
+.cart-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 10px 10px;
+}
+.row-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid rgb(195, 168, 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rowimg{
+    max-width: 43px;
+    max-height: 43px;
+    border-radius: 50%;
+}
+.fa-trash:hover{
+    cursor: pointer;
+    color: #333;
+}
+.placeoder{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background-color: goldenrod;
+    color: white;
+}
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Prompt:wght@600&display=swap');
+  </style>
+    </head>
+    <body>
+        <div class="header">
+            <p class="logo">SGHVSP003</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container">
+            <div id="root"></div>
+            <div class="sidebar">
+                <div class="head"><p>My Cart</p></div>
+                <div id="cartItem">Your cart is empty</div>
+                <div class="foot">
+                    <h3>Total</h3>
+                    <h2 id="total">$ 0.00</h2>
+                    <div id="placeorder"><input type="button" onclick="placeorder()" value="place order" />
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+const product = [
+    {
+        id: 0,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5g9UG2Jw3ui_epmJjOL0vlK1-ybjnYuQK9A&usqp=CAU',
+        title: 'Ribeye Steak',
+        price: 120,
+    },
+    {
+        id: 1,
+        image: 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/6/13/0/FNK_LOADED-BAKED-POTATO-CASSEROLE-H_s4x3.jpg.rend.hgtvcom.616.462.suffix/1497385559585.jpeg',
+        title: 'Loaded Baked Potato',
+        price: 240,
+    },
+    {
+        id: 2,
+        image: 'https://cookieandkate.com/images/2021/05/caesar-salad-in-bowl.jpg',
+        title: 'Caesar Salad',
+        price: 180,
+    },
+    {
+        id: 3,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX8Y_0fDeQyNxswh4Lm4xIQcA_rxmonCUIwg&usqp=CAU',
+        title: 'Quinoa Salad with Roasted Vegetables',
+        price: 320,
+    },
+    {
+        id: 4,
+        image: 'https://assets-global.website-files.com/60da4419d98adf0a36dc660e/6171ad5ced87812863e86ba6_GrainFreeBuddhaBowl-2-1-scaled.jpg',
+        title: 'Vegan Buddha Bowl',
+        price: 180,
+    },
+    {
+        id: 5,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm7qYnN69VTfckqZjPPTp_GAKHoM3B8V7pzg&usqp=CAU',
+        title: 'Lentil Soup',
+        price: 280,
+    },
+    {
+        id: 6,
+        image: 'https://www.thespruceeats.com/thmb/IG3UrSOgJrcIliJjW_8mYhIu6eg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/portobello-mushroom-burger-with-avocados-3378624-hero-01-2b28fe4315934ba9b3c940ad5ab7fe17.jpg',
+        title: 'Portobello Mushroom Burger',
+        price: 139,
+    },
+    {
+        id: 7,
+        image: 'https://www.cookingclassy.com/wp-content/uploads/2017/02/skillet-seared-salmon-2.jpg',
+        title: 'Grilled Salmon with Lemon Butter',
+        price: 599,
+    },
+    {
+        id: 8,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGgBkHjjvYyT_oG6bZC0sUUEiDjR_QDplVmw&usqp=CAU',
+        title: 'Shrimp Scampi',
+        price: 392,
+    },
+    {
+        id: 9,
+        image: 'https://i1.wp.com/cleaneatingwithadirtymind.com/wp-content/uploads/2016/11/new-england-clam-chowder-1.jpg?fit=2100%2C2175',
+        title: 'Clam Chowder',
+        price: 280,
+    },
+    {
+        id: 10,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSLkDNZwW1Aj5TMHphf72hc4wIkW_fIyoZLQ&usqp=CAU',
+        title: 'Lobster Tail',
+        price: 899,
+    },
+    {
+        id: 11,
+        image: 'https://www.seriouseats.com/thmb/DbQHUK2yNCALBnZE-H1M2AKLkok=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/chicken-tikka-masala-for-the-grill-recipe-hero-2_1-cb493f49e30140efbffec162d5f2d1d7.JPG',
+        title: 'Chicken Tikka Masala',
+        price: 380,
+    },
+    {
+        id: 12,
+        image: 'https://www.archanaskitchen.com/images/archanaskitchen/1-Author/sandhya-archanaskitchen.com/Chettinad_Vegetable_Biryani_Recipe.jpg',
+        title: 'Vegetable Biryani',
+        price: 199,
+    },
+];
+const categories = [...new Set(product.map((item)=>
+    {return item}))]
+    let i=0;
+document.getElementById('root').innerHTML = categories.map((item)=>
+{
+    var {image, title, price} = item;
+    return(
+        `<div class='box'>
+            <div class='img-box'>
+                <img class='images' src=${image}></img>
+            </div>
+        <div class='bottom'>
+        <p>${title}</p>
+        <h2>&#8377 ${price}.00</h2>`+
+        "<button onclick='addtocart("+(i++)+")'>Add to cart</button>"+
+        `</div>
+        </div>`
+    )
+}).join('')
+
+var cart =[];
+
+function addtocart(a){
+    cart.push({...categories[a]});
+    displaycart();
+}
+function delElement(a){
+    cart.splice(a, 1);
+    displaycart();
+}
+
+function displaycart(){
+    let j = 0, total=0;
+    document.getElementById("count").innerHTML=cart.length;
+    if(cart.length==0){
+        document.getElementById('cartItem').innerHTML = "Your cart is empty";
+        document.getElementById("total").innerHTML = "&#8377 "+0+".00";
+    }
+    else{
+        document.getElementById("cartItem").innerHTML = cart.map((items)=>
+        {
+            var {image, title, price} = items;
+            total=total+price;
+            document.getElementById("total").innerHTML = "&#8377; "+total+".00";
+            return(
+                `<div class='cart-item'>
+                <div class='row-img'>
+                    <img class='rowimg' src=${image}>
+                </div>
+                <p style='font-size:12px;'>${title}</p>
+                <h2 style='font-size: 15px;'>&#8377 ${price}.00</h2>`+
+                "<i class='fa-solid fa-trash' onclick='delElement("+ (j++) +")'></i></div>"
+            );
+        }).join('');
+    }   
+}
+function placeorder() {
+    alert("Details to fill")
+    window.location.assign('pament.html');
+ }
+</script>
+    </body>
+</html>
